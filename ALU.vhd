@@ -41,8 +41,8 @@ begin
 				output <= std_logic_vector(resize(signed(inputA) - signed(inputB),8));
 			when OP_MUL =>
 				output <= std_logic_vector(resize(signed(inputA) * signed(inputB),8));
-			when OP_DIV =>
-				output <= std_logic_vector(resize(signed(inputA) / signed(inputB),8));
+			--when OP_DIV =>
+			--	output <= std_logic_vector(resize(signed(inputA) / signed(inputB),8));
 				
 			when OP_ADDU =>
 				output <= std_logic_vector(resize(unsigned(inputA) + unsigned(inputB),8));
@@ -50,8 +50,8 @@ begin
 				output <= std_logic_vector(resize(unsigned(inputA) - unsigned(inputB),8));
 			when OP_MULU =>
 				output <= std_logic_vector(resize(unsigned(inputA) * unsigned(inputB),8));
-			when OP_DIVU =>
-				output <= std_logic_vector(resize(unsigned(inputA) / unsigned(inputB),8));
+			--when OP_DIVU =>
+			--	output <= std_logic_vector(resize(unsigned(inputA) / unsigned(inputB),8));
 				
 			when OP_INC =>
 				output <= std_logic_vector(resize(signed(inputA) + 1, 8));

@@ -11,8 +11,8 @@ Instructions:
 There is a register, just one, the register.
 
 00000 LOAD	Load an address into the register
-00001 STORE	Store the register into an address
-00010 SWAP	Swap the register value and the value at some address
+00001 SWAP	Swap the register value and the value at some address
+00010 STORE	Store the register into an address
 00011 STOP	Stop the program
 
 00100 TSG	Test, skip if greater
@@ -22,8 +22,8 @@ There is a register, just one, the register.
 
 01000 JMP	Jump to specified address
 01001 JMA	Jump to the address stored at the specified address
-01010 JMPL	Jump-Load, Jump to the specified address, load the value of the thing just before that address to the register
-01011 JMPSTR	Jump-Store, Jump to the specified address, store the value of the register just before that address
+01010 UNDEFINED
+01011 UNDEFINED
 
 01100 IOW	IO write, write register to output
 01101 IOR	IO read, read input to register

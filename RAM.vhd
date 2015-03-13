@@ -1,14 +1,18 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
+use work.types_package.all;
 
 --This is the entire RAM. A set of eight instances of the 8 bit cells
 
+
 entity RAM is
+	
     Port ( clk : in  STD_LOGIC;
            addr : in  STD_LOGIC_VECTOR (2 downto 0);
            data_in : in  STD_LOGIC_VECTOR (7 downto 0);
            data_out : out  STD_LOGIC_VECTOR (7 downto 0);
+			  display_out : out cell_select_array;
            wen : in  STD_LOGIC);
 end RAM;
 
@@ -34,7 +38,7 @@ architecture Behavioral of RAM is
 	signal wen_sel: std_logic_vector(7 downto 0);
 	signal addr_sel: std_logic_vector(7 downto 0);
 
-	type cell_select_array is array (0 to 7) of std_logic_vector(7 downto 0);
+	--type cell_select_array is array (0 to 7) of std_logic_vector(7 downto 0);
 	signal cell_data_select: cell_select_array;
 begin
 
@@ -57,6 +61,8 @@ begin
 	end generate;
 	
 	data_out <= cell_data_select(to_integer(unsigned(addr)));
+
+	display_out <= cell_data_select;
 
 end Behavioral;
 
