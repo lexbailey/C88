@@ -1,0 +1,51 @@
+
+C88 instruction encoding
+
+Opcode - 7:0
+Addr - 2:0
+Instruction - 7:3
+
+Instructions:
+32 instructions
+
+There is a register, just one, the register.
+
+00000 LOAD	Load an address into the register
+00001 STORE	Store the register into an address
+00010 SWAP	Swap the register value and the value at some address
+00011 STOP	Stop the program
+
+00100 TSG	Test, skip if greater
+00101 TSL	Test, skip if less
+00110 TSE	Test, skip if equal
+00111 TSI	Test, skip if inequal
+
+01000 JMP	Jump to specified address
+01001 JMA	Jump to the address stored at the specified address
+01010 JMPL	Jump-Load, Jump to the specified address, load the value of the thing just before that address to the register
+01011 JMPSTR	Jump-Store, Jump to the specified address, store the value of the register just before that address
+
+01100 IOW	IO write, write register to output
+01101 IOR	IO read, read input to register
+01110 IOS	IO swap, write register to output then load input to register
+01111 IOC	IO clear, write 0 to output register
+
+10000 ADD	Add value at address to register, result in register
+10001 SUB	Subtract value at address from register, result in register
+10010 MUL	Multiply value at address by register, result in register
+10011 DIV	Divide register by value at address, result in register
+
+10100 SHL	Shift register left by ammount specified (as address), this can be used as a no-op, shift left 0
+10101 SHR	Shift register right by ammount specified (as address), this can be used as a no-op, shift right 0
+10110 ROL	Rotate register left by ammount specified (as address), this can be used as a no-op, rotate left 0
+10111 ROR	Rotate register right by ammount specified (as address), this can be used as a no-op, rotate right 0
+
+11000 ADDU	Same as ADD but unsigned
+11001 SUBU	Same as SUB but unsigned
+11010 MULU	Same as MUL but unsigned
+11011 DIVU	Same as DIV but unsigned
+
+11100 INC	Increment register by one
+11101 DEC	Decremenet register by one
+11110 DOUBLE	Double the value of the register
+11111 HALF	Half the value of register

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/daniel/C88/ALU_tb_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="alu_tb" />
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="20" />
+   <wvobject fp_name="/alu_tb/inputa" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">inputa[7:0]</obj_property>
+      <obj_property name="ObjectShortName">inputa[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/inputb" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">inputb[7:0]</obj_property>
+      <obj_property name="ObjectShortName">inputb[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/operation" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">operation[3:0]</obj_property>
+      <obj_property name="ObjectShortName">operation[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/output" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">output[7:0]</obj_property>
+      <obj_property name="ObjectShortName">output[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_add" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_add[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_add[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_sub" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_sub[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_sub[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_mul" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_mul[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_mul[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_div" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_div[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_div[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_shl" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_shl[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_shl[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_shr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_shr[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_shr[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_rol" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_rol[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_rol[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_ror" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_ror[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_ror[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_addu" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_addu[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_addu[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_subu" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_subu[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_subu[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_mulu" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_mulu[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_mulu[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_divu" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_divu[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_divu[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_inc" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_inc[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_inc[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_dec" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_dec[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_dec[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_double" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_double[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_double[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/alu_tb/op_half" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_half[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_half[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+</wave_config>
