@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/daniel/C88/test_program_3_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="test_program_3" />
+            <top_module name="types_package" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="15" />
+   <wvobject fp_name="/test_program_3/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/run" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">run</obj_property>
+      <obj_property name="ObjectShortName">run</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/step" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">step</obj_property>
+      <obj_property name="ObjectShortName">step</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/user_mode" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">user_mode</obj_property>
+      <obj_property name="ObjectShortName">user_mode</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/user_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">user_addr[2:0]</obj_property>
+      <obj_property name="ObjectShortName">user_addr[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/user_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">user_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">user_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/user_write" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">user_write</obj_property>
+      <obj_property name="ObjectShortName">user_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/uut/Inst_Control/state" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/uut/Inst_Control/next_state" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">next_state</obj_property>
+      <obj_property name="ObjectShortName">next_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/uut/Inst_PC/pcval" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pcval[2:0]</obj_property>
+      <obj_property name="ObjectShortName">pcval[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/uut/main_register/data" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data[7:0]</obj_property>
+      <obj_property name="label">main_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/uut/instruction_register/data" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data[7:0]</obj_property>
+      <obj_property name="label">reg_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/display" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">display[0:7]</obj_property>
+      <obj_property name="ObjectShortName">display[0:7]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_3/clk_period" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">clk_period</obj_property>
+      <obj_property name="ObjectShortName">clk_period</obj_property>
+   </wvobject>
+</wave_config>

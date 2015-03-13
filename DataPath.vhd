@@ -7,7 +7,11 @@ entity DataPath is
            rst : in  STD_LOGIC;
            run : in  STD_LOGIC;
            step : in  STD_LOGIC;
-			  display : out cell_select_array);
+			  display : out cell_select_array;
+			  user_mode : in STD_LOGIC;
+			  user_addr : in STD_LOGIC_VECTOR (2 downto 0);
+			  user_data : in STD_LOGIC_VECTOR (7 downto 0);
+			  user_write : in STD_LOGIC);
 end DataPath;
 
 architecture Behavioral of DataPath is
@@ -85,6 +89,7 @@ architecture Behavioral of DataPath is
 	END COMPONENT;
 	
 	signal RAM_Addr: std_logic_vector(2 downto 0);
+	signal sys_Addr: std_logic_vector(2 downto 0);
 	signal RAM_Addr_PC: std_logic_vector(2 downto 0);
 	signal RAM_Addr_DECODE: std_logic_vector(2 downto 0);
 	signal RAM_Addr_DATA_TAP: std_logic_vector(2 downto 0);
@@ -110,6 +115,7 @@ architecture Behavioral of DataPath is
 	signal stop: std_logic;
 	
 	signal ram_wen: std_logic;
+	signal sys_ram_wen: std_logic;
 	signal is_exec: std_logic;
 	signal main_reg_wen: std_logic;
 	
@@ -135,9 +141,13 @@ begin
 		display_out => display
 	);
 	
-	RAM_Data_in <= main_reg_out;
+	RAM_Data_in <= user_data when user_mode = '1'
+			else main_reg_out;
 	
-	RAM_Addr <= RAM_Addr_PC when ram_sel = '0'
+	RAM_Addr <= user_addr when user_mode = '1'
+			else sys_addr;
+	
+	sys_Addr <= RAM_Addr_PC when ram_sel = '0'
 			else RAM_addr_DECODE;
 	
 	Inst_InstructionDecoder: InstructionDecoder PORT MAP(
@@ -154,8 +164,11 @@ begin
 	
 	main_reg_wen <= '1' when is_exec = '1' and dec_main_reg_wen = '1'
 				else '0';
-	ram_wen <= '1' when is_exec = '1' and dec_ram_wen = '1'
+	sys_ram_wen <= '1' when is_exec = '1' and dec_ram_wen = '1'
 				else '0';
+				
+	ram_wen <= user_write when user_mode = '1'
+				else sys_ram_wen;
 
 	Inst_ALU: ALU PORT MAP(
 		inputA => main_reg_out,
