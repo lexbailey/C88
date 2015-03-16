@@ -32,12 +32,14 @@ architecture Behavioral of DataPath is
 		opcode : IN std_logic_vector(7 downto 0);          
 		addr : OUT std_logic_vector(2 downto 0);
 		ALU_op : OUT std_logic_vector(3 downto 0);
+		COMP_op : OUT std_logic_vector(1 downto 0);
 		reg_wen : OUT std_logic;
 		ram_wen : OUT std_logic;
 		stop : OUT std_logic;
 		is_jump : OUT std_logic;
 		jump_type : OUT std_logic;
-		reg_input_select : OUT std_logic
+		reg_input_select : OUT std_logic;
+		is_test : OUT std_logic
 		);
 	END COMPONENT;
 
@@ -54,6 +56,7 @@ architecture Behavioral of DataPath is
 	PORT(
 		clk : IN std_logic;
 		inc : IN std_logic;
+		skip : IN std_logic;
 		rst : IN std_logic;
 		PCIn : IN std_logic_vector(2 downto 0);
 		jmp : IN std_logic;          
@@ -67,13 +70,15 @@ architecture Behavioral of DataPath is
 		run : IN std_logic;
 		step : IN std_logic;
 		stop : IN std_logic;
+		skip : IN std_logic;
 		is_jump : IN std_logic;
 		rst : IN std_logic;          
 		ram_addr_sel : OUT std_logic;
 		is_exec : OUT std_logic;
 		instr_reg_wen : OUT std_logic;
 		pc_inc : OUT std_logic;
-		pc_load : OUT std_logic
+		pc_load : OUT std_logic;
+		pc_skip : OUT std_logic
 		);
 	END COMPONENT;
 
@@ -85,6 +90,15 @@ architecture Behavioral of DataPath is
 		wen : IN std_logic;
 		rst : IN std_logic;          
 		data_out : OUT std_logic_vector(7 downto 0)
+		);
+	END COMPONENT;
+	
+	COMPONENT comparator
+	PORT(
+		a : IN std_logic_vector(7 downto 0);
+		b : IN std_logic_vector(7 downto 0);
+		mode : IN std_logic_vector(1 downto 0);          
+		c : OUT std_logic
 		);
 	END COMPONENT;
 	
@@ -130,7 +144,19 @@ architecture Behavioral of DataPath is
 	signal pc_inc: std_logic;
 	signal pc_load: std_logic;
 	
+	signal test_pass: std_logic;
+	
+	signal is_test: std_logic;
+	
+	signal pc_skip: std_logic;
+	
+	signal do_skip : std_logic;
+	
+	signal comp_op : std_logic_vector(1 downto 0);
+	
 begin
+
+	
 
 	Inst_RAM: RAM PORT MAP(
 		clk => clk,
@@ -154,12 +180,14 @@ begin
 		opcode => instr_reg_out,
 		addr => RAM_Addr_DECODE,
 		ALU_op => ALU_op,
+		COMP_op => comp_op,
 		reg_wen => dec_main_reg_wen,
 		ram_wen => dec_ram_wen,
 		stop => stop,
 		is_jump => is_jump,
 		jump_type => jump_type,
-		reg_input_select => reg_input_select
+		reg_input_select => reg_input_select,
+		is_test => is_test
 	);
 	
 	main_reg_wen <= '1' when is_exec = '1' and dec_main_reg_wen = '1'
@@ -177,13 +205,24 @@ begin
 		output => ALU_Result
 	);
 	
+	Inst_comparator: comparator PORT MAP(
+		a => main_reg_out,
+		b => RAM_Data_out,
+		c => test_pass,
+		mode => comp_op
+	);
+	
+	do_skip <= '1' when test_pass = '1' and is_test = '1'
+			else '0';
+	
 	Inst_PC: PC PORT MAP(
 		clk => clk,
 		inc => pc_inc,
 		rst => rst,
 		PCOut => RAM_Addr_PC,
 		PCIn => PC_in,
-		jmp => pc_load
+		jmp => pc_load,
+		skip => pc_skip
 	);
 	
 	RAM_Addr_DATA_TAP <= RAM_Data_out(2 downto 0);
@@ -196,13 +235,15 @@ begin
 		run => run,
 		step => step,
 		stop => stop,
+		skip => do_skip,
 		is_jump => is_jump,
 		rst => rst,
 		ram_addr_sel => ram_sel,
 		is_exec => is_exec,
 		instr_reg_wen => instr_reg_wen,
 		pc_inc => pc_inc,
-		pc_load => pc_load
+		pc_load => pc_load,
+		pc_skip => pc_skip
 	);	
 	
 	main_register: register_8 PORT MAP(

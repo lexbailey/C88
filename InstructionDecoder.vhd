@@ -6,12 +6,14 @@ entity InstructionDecoder is
     Port ( opcode : in  STD_LOGIC_VECTOR (7 downto 0);
            addr : out  STD_LOGIC_VECTOR (2 downto 0);
            ALU_op : out  STD_LOGIC_VECTOR (3 downto 0);
+			  COMP_op : out  STD_LOGIC_VECTOR (1 downto 0);
            reg_wen : out  STD_LOGIC;
            ram_wen : out  STD_LOGIC;
 			  stop : out  STD_LOGIC;
 			  is_jump : out  STD_LOGIC;
 			  jump_type : out  STD_LOGIC;
-			  reg_input_select: out STD_LOGIC);
+			  reg_input_select: out STD_LOGIC;
+			  is_test : OUT STD_LOGIC);
 end InstructionDecoder;
 
 architecture Behavioral of InstructionDecoder is
@@ -51,6 +53,11 @@ begin
 			else '0';
 			
 	jump_type <= opcode(3);
+	
+	is_test <= '1' when opcode (7 downto 5) = "001"
+			else '0';
+			
+	COMP_op <= opcode(4 downto 3);
 
 end Behavioral;
 

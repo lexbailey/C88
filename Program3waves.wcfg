@@ -12,7 +12,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="15" />
+   <WVObjectSize size="14" />
    <wvobject fp_name="/test_program_3/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -72,9 +72,5 @@
    <wvobject fp_name="/test_program_3/display" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">display[0:7]</obj_property>
       <obj_property name="ObjectShortName">display[0:7]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/test_program_3/clk_period" type="other" db_ref_id="1">
-      <obj_property name="ElementShortName">clk_period</obj_property>
-      <obj_property name="ObjectShortName">clk_period</obj_property>
    </wvobject>
 </wave_config>

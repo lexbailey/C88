@@ -39,7 +39,19 @@ ARCHITECTURE behavior OF test_program_3 IS
 
    -- Clock period definitions
    constant clk_period : time := 10 ns;
- 
+	
+	
+	constant test_program: cell_select_array := (
+		"00000111",
+		"00001110",
+		"00010111",
+		"00011000",
+		"00000000",
+		"00000000",
+		"00010110",
+		"00000101"
+	);
+
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
@@ -71,7 +83,8 @@ BEGIN
       -- hold reset state for 100 ns.
       wait for 100 ns;	
 
-      run <= '0';
+
+		run <= '0';
 		step <= '0';
 		user_mode <= '0';
 		user_addr <= (others => '0');
@@ -81,62 +94,19 @@ BEGIN
 		rst <= '1';
       wait for clk_period*10;
 		rst <= '0';
-      
 		user_mode <= '1';
-		user_data <= "00000111";
-		user_write <= '1';
-		wait for clk_period;
-		user_write <= '0';
-		wait for clk_period;
-		user_mode <= '1';
-		user_addr <= "001";
-		user_data <= "00001110";
-		user_write <= '1';
-		wait for clk_period;
-		user_write <= '0';
-		wait for clk_period;
-		user_mode <= '1';
-		user_addr <= "010";
-		user_data <= "00010111";
-		user_write <= '1';
-		wait for clk_period;
-		user_write <= '0';
-		wait for clk_period;
-		user_mode <= '1';
-		user_addr <= "011";
-		user_data <= "00011000";
-		user_write <= '1';
-		wait for clk_period;
-		user_write <= '0';
-		wait for clk_period;
-		user_mode <= '1';
-		user_addr <= "100";
-		user_data <= "00000000";
-		user_write <= '1';
-		wait for clk_period;
-		user_write <= '0';
-		wait for clk_period;
-		user_mode <= '1';
-		user_addr <= "101";
-		user_data <= "00000000";
-		user_write <= '1';
-		wait for clk_period;
-		user_write <= '0';
-		wait for clk_period;
-		user_mode <= '1';
-		user_addr <= "110";
-		user_data <= "00010110";
-		user_write <= '1';
-		wait for clk_period;
-		user_write <= '0';
-		wait for clk_period;
-		user_mode <= '1';
-		user_addr <= "111";
-		user_data <= "00000101";
-		user_write <= '1';
-		wait for clk_period;
-		user_write <= '0';
-		wait for clk_period;
+		
+		for i in 0 to 7 loop
+      	
+			user_addr <= std_logic_vector(to_unsigned(i, 3));
+			user_data <= test_program(i);
+			user_write <= '1';
+			wait for clk_period;
+			user_write <= '0';
+			wait for clk_period;
+		
+		end loop;
+		
 		user_mode <= '0';
 		wait for clk_period;
 		run <= '1';

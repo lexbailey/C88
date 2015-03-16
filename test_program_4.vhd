@@ -3,10 +3,10 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 use work.types_package.all;
  
-ENTITY test_program_1 IS
-END test_program_1;
+ENTITY test_program_4 IS
+END test_program_4;
  
-ARCHITECTURE behavior OF test_program_1 IS 
+ARCHITECTURE behavior OF test_program_4 IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
@@ -44,10 +44,10 @@ ARCHITECTURE behavior OF test_program_1 IS
 	--
 	constant test_program: cell_select_array := (
 		"00000111",
-		"10000110",
-		"00010101",
+		"00100110",
 		"00011000",
-		"00000000",
+		"00010110",
+		"00011000",
 		"00000000",
 		"00001100",
 		"00000011"

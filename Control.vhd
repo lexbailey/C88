@@ -7,13 +7,15 @@ entity Control is
            run : in  STD_LOGIC;
            step : in  STD_LOGIC;
 			  stop : in  STD_LOGIC;
+			  skip : in  STD_LOGIC;
 			  is_jump : in  STD_LOGIC;
            rst : in  STD_LOGIC;
            ram_addr_sel : out  STD_LOGIC;
            is_exec : out  STD_LOGIC;
            instr_reg_wen : out  STD_LOGIC;
            pc_inc : out  STD_LOGIC;
-           pc_load : out  STD_LOGIC);
+           pc_load : out  STD_LOGIC;
+			  pc_skip : out  STD_LOGIC);
 end Control;
 
 architecture Behavioral of Control is
@@ -80,10 +82,13 @@ begin
 	is_exec <= '1' when state = EXECUTE_s
 					else '0';
 					
-	pc_inc <= '1' when state = STEP_s and is_jump = '0'
+	pc_inc <= '1' when state = STEP_s and is_jump = '0' and skip = '0'
 				else '0';
 				
-	pc_load <= '1' when state = STEP_s and is_jump = '1'
+	pc_skip <= '1' when state = STEP_s and skip = '1' and is_jump = '0'
+				else '0';
+				
+	pc_load <= '1' when state = STEP_s and is_jump = '1' and skip = '0'
 				else '0';
 
 end Behavioral;
