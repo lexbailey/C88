@@ -22,8 +22,8 @@ There is a register, just one, the register.
 
 01000 JMP	Jump to specified address
 01001 JMA	Jump to the address stored at the specified address
-01010 UNDEFINED
-01011 UNDEFINED
+ToBeImplemented 01010 NEG	Negate, take the two's compliment of the main register
+ToBeImplemented 01011 INV	Invert, invert the main register
 
 01100 IOW	IO write, write register to output
 01101 IOR	IO read, read input to register

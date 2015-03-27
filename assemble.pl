@@ -196,9 +196,23 @@ for (<$file>){
 			}
 		}
 		else{
-			#If the regex didn't match, print error message, inc error count.
-			print "Syntax error on line $l: expected instruction nemonic.\n";
-			$errors++;
+			#If the instruction regex didn't match, it could be a raw number
+			if (/^[ \t]*([-+]?\d+)[ \t]*/){
+				#Check if raw number is within limits
+				if (($1 < -128) || ($1 > 255)){
+					print "Raw number on line $l: Raw numbers must be between -128 and +255\n";
+					$errors++;
+				}
+				else{
+					#add to the program (no need to worry about signs, truncating will preserve sign anyway)
+					$program[$codeLines-1] = int($1);
+				}
+			}
+			else{			
+				#no match for line type print error message, inc error count.
+				print "Syntax error on line $l: expected instruction nemonic.\n";
+				$errors++;
+			}
 		}
 	}
 }

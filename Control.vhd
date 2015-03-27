@@ -82,11 +82,10 @@ begin
 	is_exec <= '1' when state = EXECUTE_s
 					else '0';
 					
-	pc_inc <= '1' when state = STEP_s and is_jump = '0' and skip = '0'
+	pc_inc <= '1' when (state = STEP_s and is_jump = '0') or (state = EXECUTE_s and skip = '1')
 				else '0';
 				
-	pc_skip <= '1' when state = STEP_s and skip = '1' and is_jump = '0'
-				else '0';
+	pc_skip <= '0';
 				
 	pc_load <= '1' when state = STEP_s and is_jump = '1' and skip = '0'
 				else '0';
