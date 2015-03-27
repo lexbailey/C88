@@ -13,7 +13,10 @@ entity InstructionDecoder is
 			  is_jump : out  STD_LOGIC;
 			  jump_type : out  STD_LOGIC;
 			  reg_input_select: out STD_LOGIC;
-			  is_test : OUT STD_LOGIC);
+			  is_test : OUT STD_LOGIC;
+			  is_iow : OUT STD_LOGIC;
+			  is_io_in : OUT STD_LOGIC;
+			  io_reg_in_sel: OUT STD_LOGIC);
 end InstructionDecoder;
 
 architecture Behavioral of InstructionDecoder is
@@ -49,7 +52,7 @@ begin
 			else '0';
 			
 	--detect jumps (starts 010)
-	is_jump <= '1' when opcode(7 downto 5) = "010"
+	is_jump <= '1' when opcode(7 downto 4) = "0100"
 			else '0';
 			
 	jump_type <= opcode(3);
@@ -58,6 +61,17 @@ begin
 			else '0';
 			
 	COMP_op <= opcode(4 downto 3);
+
+--01101 IOR	IO read, read input to register
+
+	--make IO output register writable for IOW (IO write), IOS (IO swap) and IOC (IO clear)
+	is_iow <= '1' when (opcode(7 downto 3) = "01100") or (opcode(7 downto 3) = "01110") or (opcode(7 downto 3) = "01111")
+			else '0';
+			
+	io_reg_in_sel <= opcode(3);
+	
+	is_io_in <= '1' when (opcode (7 downto 3) = "01110")
+			else '0';
 
 end Behavioral;
 

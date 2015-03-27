@@ -11,7 +11,9 @@ entity DataPath is
 			  user_mode : in STD_LOGIC;
 			  user_addr : in STD_LOGIC_VECTOR (2 downto 0);
 			  user_data : in STD_LOGIC_VECTOR (7 downto 0);
-			  user_write : in STD_LOGIC);
+			  user_write : in STD_LOGIC;
+			  io_output : out std_logic_vector (7 downto 0);
+			  io_input : in std_logic_vector (7 downto 0));
 end DataPath;
 
 architecture Behavioral of DataPath is
@@ -39,7 +41,10 @@ architecture Behavioral of DataPath is
 		is_jump : OUT std_logic;
 		jump_type : OUT std_logic;
 		reg_input_select : OUT std_logic;
-		is_test : OUT std_logic
+		is_test : OUT std_logic;
+		is_iow : OUT std_logic;
+		is_io_in : OUT std_logic;
+		io_reg_in_sel: OUT STD_LOGIC
 		);
 	END COMPONENT;
 
@@ -154,6 +159,14 @@ architecture Behavioral of DataPath is
 	
 	signal comp_op : std_logic_vector(1 downto 0);
 	
+	signal io_out_data: std_logic_vector(7 downto 0);
+	
+	signal io_out_reg_wen: std_logic;
+
+	signal io_reg_in_sel: std_logic;
+	
+	signal is_io_in: std_logic;
+	
 begin
 
 	
@@ -187,7 +200,10 @@ begin
 		is_jump => is_jump,
 		jump_type => jump_type,
 		reg_input_select => reg_input_select,
-		is_test => is_test
+		is_test => is_test,
+		is_iow => io_out_reg_wen,
+		is_io_in => is_io_in,
+		io_reg_in_sel => io_reg_in_sel
 	);
 	
 	main_reg_wen <= '1' when is_exec = '1' and dec_main_reg_wen = '1'
@@ -254,7 +270,9 @@ begin
 		rst => rst
 	);
 	
-	main_reg_in <= RAM_data_out when reg_input_select = '1'
+	--Bodge mux. Selects either GPIO input, RAM out or ALU result
+	main_reg_in <= io_input when is_io_in = '1'
+				else RAM_data_out when reg_input_select = '1'
 				else ALU_Result;
 	
 	instruction_register: register_8 PORT MAP(
@@ -266,6 +284,18 @@ begin
 	);
 	
 	instr_reg_in <= RAM_Data_Out;
+	
+	
+	gpio_output_register: register_8 PORT MAP(
+		clk => clk,
+		data_in => io_out_data,
+		data_out => io_output,
+		wen => io_out_reg_wen,
+		rst => rst
+	);
+	
+	io_out_data <= "00000000" when io_reg_in_sel = '1'
+			else main_reg_out;
 	
 end Behavioral;
 
