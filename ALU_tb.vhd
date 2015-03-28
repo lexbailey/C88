@@ -28,24 +28,24 @@ ARCHITECTURE behavior OF ALU_tb IS
    signal output : std_logic_vector(7 downto 0);
 	
 	constant OP_ADD: std_logic_vector(3 downto 0) := "0000";
-constant OP_SUB: std_logic_vector(3 downto 0) := "0001";
-constant OP_MUL: std_logic_vector(3 downto 0) := "0010";
-constant OP_DIV: std_logic_vector(3 downto 0) := "0011";
+	constant OP_SUB: std_logic_vector(3 downto 0) := "0001";
+	constant OP_MUL: std_logic_vector(3 downto 0) := "0010";
+	constant OP_DIV: std_logic_vector(3 downto 0) := "0011";
 
-constant OP_SHL: std_logic_vector(3 downto 0) := "0100";
-constant OP_SHR: std_logic_vector(3 downto 0) := "0101";
-constant OP_ROL: std_logic_vector(3 downto 0) := "0110";
-constant OP_ROR: std_logic_vector(3 downto 0) := "0111";
+	constant OP_SHL: std_logic_vector(3 downto 0) := "0100";
+	constant OP_SHR: std_logic_vector(3 downto 0) := "0101";
+	constant OP_ROL: std_logic_vector(3 downto 0) := "0110";
+	constant OP_ROR: std_logic_vector(3 downto 0) := "0111";
 
-constant OP_ADDU: std_logic_vector(3 downto 0) := "1000";
-constant OP_SUBU: std_logic_vector(3 downto 0) := "1001";
-constant OP_MULU: std_logic_vector(3 downto 0) := "1010";
-constant OP_DIVU: std_logic_vector(3 downto 0) := "1011";
+	constant OP_ADDU: std_logic_vector(3 downto 0) := "1000";
+	constant OP_SUBU: std_logic_vector(3 downto 0) := "1001";
+	constant OP_MULU: std_logic_vector(3 downto 0) := "1010";
+	constant OP_DIVU: std_logic_vector(3 downto 0) := "1011";
 
-constant OP_INC: std_logic_vector(3 downto 0) := "1100";
-constant OP_DEC: std_logic_vector(3 downto 0) := "1101";
-constant OP_DOUBLE: std_logic_vector(3 downto 0) := "1110";
-constant OP_HALF: std_logic_vector(3 downto 0) := "1111";
+	constant OP_INC: std_logic_vector(3 downto 0) := "1100";
+	constant OP_DEC: std_logic_vector(3 downto 0) := "1101";
+	constant OP_DOUBLE: std_logic_vector(3 downto 0) := "1110";
+	constant OP_HALF: std_logic_vector(3 downto 0) := "1111";
 	
 BEGIN
  
