@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/daniel/C88/test_program_5_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="test_program_5" />
+            <top_module name="types_package" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="23" />
+   <wvobject fp_name="/test_program_5/uut/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/run" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">run</obj_property>
+      <obj_property name="ObjectShortName">run</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/step" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">step</obj_property>
+      <obj_property name="ObjectShortName">step</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/display" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">display[0:7]</obj_property>
+      <obj_property name="ObjectShortName">display[0:7]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/user_mode" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">user_mode</obj_property>
+      <obj_property name="ObjectShortName">user_mode</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/user_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">user_addr[2:0]</obj_property>
+      <obj_property name="ObjectShortName">user_addr[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/user_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">user_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">user_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/user_write" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">user_write</obj_property>
+      <obj_property name="ObjectShortName">user_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/gpio_output_register/data_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/gpio_output_register/wen" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wen</obj_property>
+      <obj_property name="ObjectShortName">wen</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/gpio_output_register/data_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/ram_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ram_addr[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ram_addr[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/Inst_PC/pcout" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pcout[2:0]</obj_property>
+      <obj_property name="ObjectShortName">pcout[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/Inst_Control/state" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/Inst_Control/next_state" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">next_state</obj_property>
+      <obj_property name="ObjectShortName">next_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/gpio_output_register/data_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/instruction_register/data" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data[7:0]</obj_property>
+      <obj_property name="label">current_instr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/main_register/data" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data[7:0]</obj_property>
+      <obj_property name="label">main_reg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/io_output" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">io_output[7:0]</obj_property>
+      <obj_property name="ObjectShortName">io_output[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/io_input" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">io_input[7:0]</obj_property>
+      <obj_property name="ObjectShortName">io_input[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/main_reg_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">main_reg_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">main_reg_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_program_5/uut/Inst_InstructionDecoder/is_io_in" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">is_io_in</obj_property>
+      <obj_property name="ObjectShortName">is_io_in</obj_property>
+   </wvobject>
+</wave_config>

@@ -161,6 +161,8 @@ architecture Behavioral of DataPath is
 	
 	signal io_out_data: std_logic_vector(7 downto 0);
 	
+	signal dec_io_out_reg_wen: std_logic;
+	
 	signal io_out_reg_wen: std_logic;
 
 	signal io_reg_in_sel: std_logic;
@@ -201,7 +203,7 @@ begin
 		jump_type => jump_type,
 		reg_input_select => reg_input_select,
 		is_test => is_test,
-		is_iow => io_out_reg_wen,
+		is_iow => dec_io_out_reg_wen,
 		is_io_in => is_io_in,
 		io_reg_in_sel => io_reg_in_sel
 	);
@@ -293,6 +295,9 @@ begin
 		wen => io_out_reg_wen,
 		rst => rst
 	);
+	
+	io_out_reg_wen <= '1' when is_exec = '1' and dec_io_out_reg_wen = '1'
+				else '0';
 	
 	io_out_data <= "00000000" when io_reg_in_sel = '1'
 			else main_reg_out;

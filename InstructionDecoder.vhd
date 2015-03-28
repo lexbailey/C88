@@ -34,7 +34,8 @@ begin
 	--also be high for load and swap.
 	--Load and swap are encoded as 00000 and 00001, so test
 	--first four bits for zero to detect load or swap
-	reg_wen <= '1' when opcode(7) = '1' or opcode(7 downto 4) = "0000"
+	--Also, IO read or swap requires this to be high, 01101 or 01110
+	reg_wen <= '1' when ((opcode(7) = '1') or (opcode(7 downto 4) = "0000")) or ((opcode(7 downto 5) = "011") and (opcode(4)='1' xor opcode(3)='1'))
 			else '0';
 			
 	--select ram input when doing load or swap
