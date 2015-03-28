@@ -61,7 +61,6 @@ architecture Behavioral of DataPath is
 	PORT(
 		clk : IN std_logic;
 		inc : IN std_logic;
-		skip : IN std_logic;
 		rst : IN std_logic;
 		PCIn : IN std_logic_vector(2 downto 0);
 		jmp : IN std_logic;          
@@ -82,8 +81,7 @@ architecture Behavioral of DataPath is
 		is_exec : OUT std_logic;
 		instr_reg_wen : OUT std_logic;
 		pc_inc : OUT std_logic;
-		pc_load : OUT std_logic;
-		pc_skip : OUT std_logic
+		pc_load : OUT std_logic
 		);
 	END COMPONENT;
 
@@ -152,8 +150,6 @@ architecture Behavioral of DataPath is
 	signal test_pass: std_logic;
 	
 	signal is_test: std_logic;
-	
-	signal pc_skip: std_logic;
 	
 	signal do_skip : std_logic;
 	
@@ -239,8 +235,7 @@ begin
 		rst => rst,
 		PCOut => RAM_Addr_PC,
 		PCIn => PC_in,
-		jmp => pc_load,
-		skip => pc_skip
+		jmp => pc_load
 	);
 	
 	RAM_Addr_DATA_TAP <= RAM_Data_out(2 downto 0);
@@ -260,8 +255,7 @@ begin
 		is_exec => is_exec,
 		instr_reg_wen => instr_reg_wen,
 		pc_inc => pc_inc,
-		pc_load => pc_load,
-		pc_skip => pc_skip
+		pc_load => pc_load
 	);	
 	
 	main_register: register_8 PORT MAP(

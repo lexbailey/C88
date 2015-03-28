@@ -14,8 +14,7 @@ entity Control is
            is_exec : out  STD_LOGIC;
            instr_reg_wen : out  STD_LOGIC;
            pc_inc : out  STD_LOGIC;
-           pc_load : out  STD_LOGIC;
-			  pc_skip : out  STD_LOGIC);
+           pc_load : out  STD_LOGIC);
 end Control;
 
 architecture Behavioral of Control is
@@ -84,8 +83,6 @@ begin
 					
 	pc_inc <= '1' when (state = STEP_s and is_jump = '0') or (state = EXECUTE_s and skip = '1')
 				else '0';
-				
-	pc_skip <= '0';
 				
 	pc_load <= '1' when state = STEP_s and is_jump = '1' and skip = '0'
 				else '0';

@@ -20,7 +20,9 @@ ARCHITECTURE behavior OF test_program_4 IS
          user_mode : IN  std_logic;
          user_addr : IN  std_logic_vector(2 downto 0);
          user_data : IN  std_logic_vector(7 downto 0);
-         user_write : IN  std_logic
+         user_write : IN  std_logic;
+			io_output : out std_logic_vector (7 downto 0);
+			io_input : in std_logic_vector (7 downto 0)
         );
     END COMPONENT;
     
@@ -34,6 +36,8 @@ ARCHITECTURE behavior OF test_program_4 IS
    signal user_addr : std_logic_vector(2 downto 0) := (others => '0');
    signal user_data : std_logic_vector(7 downto 0) := (others => '0');
    signal user_write : std_logic := '0';
+	signal io_output : std_logic_vector (7 downto 0) := (others => '0');
+	signal io_input : std_logic_vector (7 downto 0) := (others => '0');
 
  	--Outputs
    signal display : cell_select_array;
@@ -41,8 +45,8 @@ ARCHITECTURE behavior OF test_program_4 IS
    -- Clock period definitions
    constant clk_period : time := 10 ns;
  
-	--
-	constant test_program: cell_select_array := (
+ 
+ constant test_program: cell_select_array := (
 		"11100000",
 		"00110111",
 		"01000000",
@@ -65,7 +69,9 @@ BEGIN
           user_mode => user_mode,
           user_addr => user_addr,
           user_data => user_data,
-          user_write => user_write
+          user_write => user_write,
+			 io_output => io_output,
+			 io_input => io_input
         );
 
    -- Clock process definitions
@@ -91,6 +97,7 @@ BEGIN
 		user_addr <= (others => '0');
 		user_data <= (others => '0');
 		user_write <= '0';
+		io_input <= "10101010";
 
 		rst <= '1';
       wait for clk_period*10;
