@@ -52,3 +52,5 @@ _ngo/
 *~
 *.~lock.*
 *.bin
+*.pdf
+*.rpt
