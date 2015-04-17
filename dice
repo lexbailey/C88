@@ -1,0 +1,19 @@
+//Dice program.
+//Generates a random number between one and 6.
+//You can change the range by modifying constants 5 and 6
+//Increment
+INC
+//Test, skip if 7 is greater than register
+TSG 5
+//Load in a 1 if we are over six
+LOAD 6
+//Store result in 7
+STORE 7
+//Return to start
+JMP 0
+//Constant 5 (Upper limit plus one)
+7
+//Constant 6 (Lower limit)
+1
+//Output 7
+0

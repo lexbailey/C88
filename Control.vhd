@@ -25,15 +25,33 @@ architecture Behavioral of Control is
 	signal step_d: std_logic;
 	signal step_pulse: std_logic;
 
+	signal debounceshift: std_logic_vector(15 downto 0);
+
+	signal debouncecount: unsigned(17 downto 0);
+	
+	signal step_deb_enable: std_logic;
+	
+	signal last_bit: std_logic;
+
 begin
+
+	step_deb_enable <= '1' when debouncecount = "111111111111111111"
+			else '0';
+			
+	debounceshift(0) <= step;
 
 	process (clk) begin
 		if rising_edge(clk) then
-			step_d <= step;
+			last_bit <= debounceshift(15);
+			debouncecount <= debouncecount+1;
+			if step_deb_enable = '1' then
+				debounceshift(15 downto 1) <= debounceshift(14 downto 0);
+			end if;
 		end if;
 	end process;
 	
-	step_pulse <= '1' when step_d = '0' and step = '1'
+	
+	step_pulse <= '1' when debounceshift = "1111111111111111" and last_bit = '0'
 			else '0';
 
 	process (clk) begin
