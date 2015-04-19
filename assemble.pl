@@ -113,7 +113,7 @@ print "Assmebling $filename into $outputName\n";
 #Open the input file
 my $file;
 open($file, "<", $filename)
-	or die "Can't open input file '$filename'. $!";
+	or die "Can't open input file '$filename'. $!\n";
 
 #Array for entire RAM space, initialise to 0
 @program = (0,0,0,0,0,0,0,0);
@@ -138,10 +138,10 @@ for (<$file>){
 		$codeLines++;
 		#If there have been more than eight so far without error, the program is clearly too long
 		if (($codeLines > 8) && ($errors == 0)){
-			die "Program is too long. Please reduce program to 8 bytes or less.";
+			die "Program is too long. Please reduce program to 8 bytes or less.\n";
 		}
 		#Regex matches instruction mnemonic followed by optional spaces and argument
-		if (/^[ \t]*([A-Za-z]+)([ \t]*)([0-9]*)[ \t]*$/){
+		if (/^[ \t]*([A-Za-z]+)([ \t]*)([0-9]*)[ \t]*$/i){
 			#upper case the mnemonic
 			$mn = uc $1;
 			#get the opcode
@@ -189,7 +189,7 @@ for (<$file>){
 				}
 				else{
 					#When we reach here we have a valid instruction with no argument
-					#shift the opcode, no argument to or in this time, store in program line
+					#shift the opcode, no argument to 'or-in' this time, store in program line
 					$program[$codeLines-1] = ($opNum << 3);
 
 				}
@@ -197,20 +197,27 @@ for (<$file>){
 		}
 		else{
 			#If the instruction regex didn't match, it could be a raw number
-			if (/^[ \t]*([-+]?\d+)[ \t]*/){
+			if (/^[ \t]*([-+]?(?:0x)?\d+)[ \t]*/){
+				#Get the number (Assume decimal)
+				$num == int($1);
+				#If the number is 0 then maybe it was actually hex
+				if ($1 == 0){
+					#Get the hex value instead, if it really was 0 then it will still be zero
+					$num = hex($1);
+				}
 				#Check if raw number is within limits
-				if (($1 < -128) || ($1 > 255)){
-					print "Raw number on line $l: Raw numbers must be between -128 and +255\n";
+				if (($num < -128) || ($num > 255)){
+					print "Invalid raw number on line $l: Raw numbers must be between -128 and +255\n";
 					$errors++;
 				}
 				else{
 					#add to the program (no need to worry about signs, truncating will preserve sign anyway)
-					$program[$codeLines-1] = int($1);
+					$program[$codeLines-1] = int($num);
 				}
 			}
 			else{			
 				#no match for line type print error message, inc error count.
-				print "Syntax error on line $l: expected instruction nemonic.\n";
+				print "Syntax error on line $l: expected instruction nemonic or raw number.\n";
 				$errors++;
 			}
 		}
@@ -232,13 +239,13 @@ if ($errors >= 8){
 
 #If we have encountered errors so far, die
 if ($errors){
-	die "Found $errors errors while assembling.\nAborted."
+	die "Found $errors errors while assembling.\nAborted.\n"
 }
 else{
 	#If we made it this far, we can create the output file
 	#open the output
 	my $out;
-	open ($out, ">", $outputName) or die "Can't open output file $outputName: $!";
+	open ($out, ">", $outputName) or die "Can't open output file $outputName: $!\n";
 
 	#enable binary file mode
 	binmode($out);
@@ -249,7 +256,7 @@ else{
 		#print the code as raw bit strings on the screen
 		print byte_to_bits($_), "\n";
 		#write to binary file
-		syswrite($out, pack("C", $_), 1) == 1 or die "Can't write output file: $!";
+		syswrite($out, pack("C", $_), 1) == 1 or die "Can't write output file: $!\n";
 	}
 	
 	#All done, close output file
