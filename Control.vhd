@@ -102,7 +102,7 @@ begin
 	pc_inc <= '1' when (state = STEP_s and is_jump = '0') or (state = EXECUTE_s and skip = '1')
 				else '0';
 				
-	pc_load <= '1' when state = STEP_s and is_jump = '1' and skip = '0'
+	pc_load <= '1' when (state = STEP_s and is_jump = '1' and skip = '0') or (state = EXECUTE_s and is_jump = '1')
 				else '0';
 
 end Behavioral;
