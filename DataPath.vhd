@@ -7,7 +7,9 @@ entity DataPath is
            rst : in  STD_LOGIC;
            run : in  STD_LOGIC;
            step : in  STD_LOGIC;
-			  display : out cell_select_array;
+			  display_mem : out cell_select_array;
+			  display_pc : out cell_select_array;
+			  display_reg : out cell_select_array;
 			  user_mode : in STD_LOGIC;
 			  user_addr : in STD_LOGIC_VECTOR (2 downto 0);
 			  user_data : in STD_LOGIC_VECTOR (7 downto 0);
@@ -165,6 +167,8 @@ architecture Behavioral of DataPath is
 	
 	signal is_io_in: std_logic;
 	
+	signal PC_to8 : std_logic_vector(7 downto 0);
+	
 begin
 
 	
@@ -175,8 +179,29 @@ begin
 		data_in => RAM_Data_In,
 		data_out => RAM_Data_Out,
 		wen => ram_wen,
-		display_out => display
+		display_out => display_mem
 	);
+	
+	PC_to8(7 downto 3) <= (others => '0');
+	PC_to8(2 downto 0) <= RAM_Addr_PC;
+	
+	display_pc(0) <= PC_to8;
+	display_pc(1) <= PC_to8;
+	display_pc(2) <= PC_to8;
+	display_pc(3) <= PC_to8;
+	display_pc(4) <= PC_to8;
+	display_pc(5) <= PC_to8;
+	display_pc(6) <= PC_to8;
+	display_pc(7) <= PC_to8;
+	
+	display_reg(0) <= main_reg_out;
+	display_reg(1) <= main_reg_out;
+	display_reg(2) <= main_reg_out;
+	display_reg(3) <= main_reg_out;
+	display_reg(4) <= main_reg_out;
+	display_reg(5) <= main_reg_out;
+	display_reg(6) <= main_reg_out;
+	display_reg(7) <= main_reg_out;
 	
 	RAM_Data_in <= user_data when user_mode = '1'
 			else main_reg_out;

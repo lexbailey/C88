@@ -24,10 +24,13 @@ architecture Behavioral of Control is
 	signal next_state: machine_state;
 
 	
-	signal last_bit: std_logic;
+	--signal last_bit: std_logic;
+	
+	signal step_pulse: std_logic;
 
 begin
 
+	--pulse generator for step signal
 	process (clk) begin
 		if rising_edge(clk) then
 			if ((step_pulse = '0') and (step = '1')) then
@@ -38,6 +41,7 @@ begin
 		end if;
 	end process;
 
+	--state machine reset and advance
 	process (clk) begin
 		if rising_edge(clk) then
 			if rst = '1' then
@@ -48,6 +52,7 @@ begin
 		end if;
 	end process;
 	
+	--state machine next state logic
 	process (state, stop, run, step_pulse) begin
 		case state is
 			when READ_s =>

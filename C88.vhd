@@ -1,5 +1,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.numeric_std.ALL;
 use work.types_package.all;
 
 entity C88 is
@@ -15,10 +16,21 @@ entity C88 is
            run : in  STD_LOGIC;
 			  MOSI: out STD_LOGIC;
 			  SCK: out STD_LOGIC;
-			  SS: out STD_LOGIC);
+			  SS: out STD_LOGIC;
+			  
+			  clock_slow: in STD_LOGIC;
+			  clock_full: in STD_LOGIC;
+			  view_pc: in STD_LOGIC;
+			  view_reg: in STD_LOGIC);
 end C88;
 
 architecture Behavioral of C88 is
+
+	type ClockMode is (SLOW_cm, FAST_cm, FULL_cm);
+	type ViewMode is (PC_vm, MEM_vm, REG_vm);
+	
+	signal clock_mode : ClockMode;
+	signal view_mode : ViewMode;
 
 	COMPONENT DataPath
 	PORT(
@@ -31,7 +43,9 @@ architecture Behavioral of C88 is
 		user_data : IN std_logic_vector(7 downto 0);
 		user_write : IN std_logic;
 		io_input : IN std_logic_vector(7 downto 0);          
-		display : OUT cell_select_array;
+		display_mem : out cell_select_array;
+		display_pc : out cell_select_array;
+		display_reg : out cell_select_array;
 		io_output : OUT std_logic_vector(7 downto 0)
 		);
 	END COMPONENT;
@@ -64,6 +78,10 @@ architecture Behavioral of C88 is
 	
 	signal display: cell_select_array;
 	
+	signal display_mem: cell_select_array;
+	signal display_pc: cell_select_array;
+	signal display_reg: cell_select_array;
+	
 	signal miso: std_logic;
 	
 	signal deb_User: std_logic;
@@ -75,14 +93,69 @@ architecture Behavioral of C88 is
 	signal deb_Data: std_logic_vector(7 downto 0);
 	signal deb_Addr: std_logic_vector(2 downto 0);
 	
+	--full clock is 
+	signal slow_clock: std_logic; -- 100hz
+	signal fast_clock: std_logic; -- 1000hz
+	
+	signal selected_clock: std_logic; -- 1000hz
+	
+	signal clock_counter: std_logic_vector(14 downto 0);
+	signal slow_clock_counter: std_logic_vector(6 downto 0);
+	
 begin
+
+	--clock divider
+	process(clk) begin
+		if (rising_edge(clk)) then
+			if deb_Reset = '1' then
+				clock_counter <= (others =>'0');
+			else
+				clock_counter <= std_logic_vector(unsigned(clock_counter) + 1);
+			end if;
+		end if;
+	end process;
+	
+	fast_clock <= '1' when clock_counter = "111110100000000"; --generate 1kHz clock
+	
+	process(clk) begin
+		if rising_edge(clk) then
+			if deb_Reset <= '1' then
+				slow_clock_counter <= (others => '0');
+			else
+				if fast_clock = '1' then
+					slow_clock_counter <= std_logic_vector(unsigned(slow_clock_counter) + 1);
+				end if;
+			end if;
+		end if;
+	end process;
+	
+	slow_clock <= '1' when slow_clock_counter = "1100100"; --generate 100Hz clock
+	
+	selected_clock <= clk when clock_mode = FULL_cm
+			else slow_clock when clock_mode = SLOW_cm
+			else fast_clock;
+	
+	clock_mode <= SLOW_cm when clock_slow = '1'
+			else FULL_cm when clock_full = '1'
+			else FAST_cm;
+			
+	view_mode <= PC_vm when view_pc = '1'
+			else REG_vm when view_reg = '1'
+			else MEM_vm;
+	
+	--Display (view) selector
+	display <= display_reg when view_mode = REG_vm
+			else display_pc when view_mode = PC_vm
+			else display_mem;
 
 	Inst_DataPath: DataPath PORT MAP(
 		clk => clk,
 		rst => deb_Reset,
 		run => deb_Run,
 		step => deb_Step,
-		display => display,
+		display_mem => display_mem,
+		display_pc => display_pc,
+		display_reg => display_reg,
 		user_mode => deb_User,
 		user_addr => deb_Addr,
 		user_data => deb_Data,
@@ -117,7 +190,7 @@ begin
 	
 	reset_Debouncer: Debouncer GENERIC MAP (150,214) PORT MAP(
 		clk => clk,
-		rst => rst,
+		rst => '0',
 		sig => rst,
 		deb_sig => deb_Reset
 	);
