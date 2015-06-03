@@ -44,15 +44,12 @@ architecture Behavioral of Debouncer is
 	signal check : std_logic_vector(CHECK_BITS-1 downto 0);
 	signal divClk: std_logic;
 	signal count: std_logic_vector(integer(ceil(log2(real(CLK_DIV)))) downto 0);
-	signal checkhigh : std_logic_vector(CHECK_BITS-1 downto 1);
-	signal checklow: std_logic;
+
 begin
 
 	divClk <= '1' when count = (count'HIGH downto 0 => '0') else '0';
 	
-	checkhigh <= check(CHECK_BITS-1 downto 1);
-	
-	checklow <= check(0);
+
 
 	process(clk) begin
 		if (rising_edge(clk)) then
@@ -71,10 +68,12 @@ begin
 				if divClk = '1' then
 					check(check'HIGH) <= sig;
 				end if;
-				if (checklow = '0') and (checkhigh = (checkhigh'HIGH downto checkhigh'LOW => '1')) then
+				if (check = (check'HIGH downto check'LOW => '1')) then
 					deb_sig <= '1';
 				else 
-					deb_sig <= '0';
+					if (check = (check'HIGH downto check'LOW => '0')) then
+						deb_sig <= '0';
+					end if;
 				end if;
 			end if;
 		end if;
