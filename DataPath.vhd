@@ -4,6 +4,7 @@ use work.types_package.all;
 
 entity DataPath is
     Port ( clk : in  STD_LOGIC;
+			  enable : in STD_LOGIC;
            rst : in  STD_LOGIC;
            run : in  STD_LOGIC;
            step : in  STD_LOGIC;
@@ -73,6 +74,7 @@ architecture Behavioral of DataPath is
 	COMPONENT Control
 	PORT(
 		clk : IN std_logic;
+		enable : in STD_LOGIC;
 		run : IN std_logic;
 		step : IN std_logic;
 		stop : IN std_logic;
@@ -270,6 +272,7 @@ begin
 	
 	Inst_Control: Control PORT MAP(
 		clk => clk,
+		enable => enable,
 		run => run,
 		step => step,
 		stop => stop,

@@ -4,6 +4,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity Control is
     Port ( clk : in  STD_LOGIC;
+			  enable : in STD_LOGIC;
            run : in  STD_LOGIC;
            step : in  STD_LOGIC;
 			  stop : in  STD_LOGIC;
@@ -28,18 +29,27 @@ architecture Behavioral of Control is
 	
 	signal step_pulse: std_logic;
 
+	signal stepped: std_logic;
+
 begin
 
 	--pulse generator for step signal
 	process (clk) begin
 		if rising_edge(clk) then
-			if ((step_pulse = '0') and (step = '1')) then
-				step_pulse <= '1';
+			if (rst = '1') then
+				stepped <= '0';
 			else
-				step_pulse <= '0';
+				if (step = '1') then
+					stepped <= '1';
+				else
+					stepped <= '0';
+				end if;				
 			end if;
 		end if;
 	end process;
+	
+	step_pulse <= '1' when (step = '1') and (stepped = '0')
+			else '0';
 
 	--state machine reset and advance
 	process (clk) begin
@@ -70,10 +80,10 @@ begin
 					next_state <= READ_s;
 				end if;
 			when PAUSE_s =>
-				if (run = '1' or step_pulse = '1') then
+				if (run = '1' or step_pulse = '1') and (enable = '1') then
 					next_state <= READ_s;
 				else
-					next_state <= state;
+					next_state <= PAUSE_s;
 				end if;
 		end case;
 	end process;

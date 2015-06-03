@@ -35,6 +35,7 @@ architecture Behavioral of C88 is
 	COMPONENT DataPath
 	PORT(
 		clk : IN std_logic;
+		enable : in STD_LOGIC;
 		rst : IN std_logic;
 		run : IN std_logic;
 		step : IN std_logic;
@@ -97,10 +98,10 @@ architecture Behavioral of C88 is
 	signal slow_clock: std_logic; -- 100hz
 	signal fast_clock: std_logic; -- 1000hz
 	
-	signal selected_clock: std_logic; -- 1000hz
-	
 	signal clock_counter: std_logic_vector(14 downto 0);
 	signal slow_clock_counter: std_logic_vector(6 downto 0);
+	
+	signal enable: std_logic;
 	
 begin
 
@@ -110,12 +111,16 @@ begin
 			if deb_Reset = '1' then
 				clock_counter <= (others =>'0');
 			else
-				clock_counter <= std_logic_vector(unsigned(clock_counter) + 1);
+				if clock_counter = "111110100000000" then
+					clock_counter <= (others =>'0');
+					fast_clock <= '1';
+				else
+					clock_counter <= std_logic_vector(unsigned(clock_counter) + 1);
+					fast_clock <= '0';
+				end if;
 			end if;
 		end if;
 	end process;
-	
-	fast_clock <= '1' when clock_counter = "111110100000000"; --generate 1kHz clock
 	
 	process(clk) begin
 		if rising_edge(clk) then
@@ -123,17 +128,21 @@ begin
 				slow_clock_counter <= (others => '0');
 			else
 				if fast_clock = '1' then
-					slow_clock_counter <= std_logic_vector(unsigned(slow_clock_counter) + 1);
+					if slow_clock_counter  = "1100100" then
+						slow_clock_counter <= (others => '0');
+						slow_clock <= '1';
+					else
+						slow_clock_counter <= std_logic_vector(unsigned(slow_clock_counter) + 1);
+						slow_clock <= '0';
+					end if;
 				end if;
 			end if;
 		end if;
 	end process;
 	
-	slow_clock <= '1' when slow_clock_counter = "1100100"; --generate 100Hz clock
-	
-	selected_clock <= clk when clock_mode = FULL_cm
-			else slow_clock when clock_mode = SLOW_cm
-			else fast_clock;
+	enable <= '1' when (clock_mode = FULL_cm)
+				else slow_clock when (clock_mode = SLOW_cm)
+				else fast_clock;
 	
 	clock_mode <= SLOW_cm when clock_slow = '1'
 			else FULL_cm when clock_full = '1'
@@ -150,6 +159,7 @@ begin
 
 	Inst_DataPath: DataPath PORT MAP(
 		clk => clk,
+		enable => enable,
 		rst => deb_Reset,
 		run => deb_Run,
 		step => deb_Step,
