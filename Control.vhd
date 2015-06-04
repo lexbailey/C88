@@ -63,7 +63,7 @@ begin
 	end process;
 	
 	--state machine next state logic
-	process (state, stop, run, step_pulse) begin
+	process (state, stop, run, step_pulse, enable) begin
 		case state is
 			when READ_s =>
 				next_state <= EXECUTE_s;

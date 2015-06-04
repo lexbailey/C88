@@ -40,8 +40,8 @@ NET SS       LOC="P94"  | PULLDOWN = false | IOSTANDARD=LVTTL;                  
 
 NET view_reg			LOC="P95" | IOSTANDARD=LVTTL;											# C3			  
 NET view_pc				LOC="P98" | IOSTANDARD=LVTTL;											# C4
-NET clock_full			LOC="P2" | IOSTANDARD=LVTTL;											# C5
-NET clock_slow			LOC="P3" | IOSTANDARD=LVTTL;											# C6
+NET is_clock_full			LOC="P2" | IOSTANDARD=LVTTL;											# C5
+NET is_clock_slow			LOC="P3" | IOSTANDARD=LVTTL;											# C6
 
 NET RUN               LOC="P18"  | IOSTANDARD=LVTTL;                             # A0
 NET STEP              LOC="P23"  | IOSTANDARD=LVTTL;                             # A1

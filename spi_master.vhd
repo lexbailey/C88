@@ -42,7 +42,8 @@ ENTITY spi_master IS
     addr    : IN     INTEGER;                               --address of slave
     tx_data : IN     STD_LOGIC_VECTOR(d_width-1 DOWNTO 0);  --data to transmit
     miso    : IN     STD_LOGIC;                             --master in, slave out
-    sclk    : BUFFER STD_LOGIC;                             --spi clock
+    --sclk    : BUFFER STD_LOGIC;                             --spi clock
+	 sclk    : out STD_LOGIC;                             --spi clock
     ss_n    : BUFFER STD_LOGIC_VECTOR(slaves-1 DOWNTO 0);   --slave select
     mosi    : OUT    STD_LOGIC;                             --master out, slave in
     busy    : OUT    STD_LOGIC;                             --busy / data ready signal
@@ -61,7 +62,12 @@ ARCHITECTURE logic OF spi_master IS
   SIGNAL rx_buffer   : STD_LOGIC_VECTOR(d_width-1 DOWNTO 0); --receive data buffer
   SIGNAL tx_buffer   : STD_LOGIC_VECTOR(d_width-1 DOWNTO 0); --transmit data buffer
   SIGNAL last_bit_rx : INTEGER RANGE 0 TO d_width*2;         --last rx data bit location
+  
+  signal sclk_int : std_logic; --intermediate signal for the sclk, neede for simulation to run.
 BEGIN
+
+	sclk <= sclk_int;
+
   PROCESS(clock, reset_n)
   BEGIN
 
@@ -96,7 +102,8 @@ BEGIN
               clk_ratio <= clk_div;  --set to input selection if valid
               count <= clk_div;      --initiate system-to-spi clock counter
             END IF;
-            sclk <= cpol;            --set spi clock polarity
+            --sclk <= cpol;            --set spi clock polarity
+				sclk_int <= cpol;            --set spi clock polarity
             assert_data <= NOT cpha; --set spi clock phase
             tx_buffer <= tx_data;    --clock in data for transmit into buffer
             clk_toggles <= 0;        --initiate clock toggle counter
@@ -122,7 +129,8 @@ BEGIN
             
             --spi clock toggle needed
             IF(clk_toggles <= d_width*2 AND ss_n(slave) = '0') THEN 
-              sclk <= NOT sclk; --toggle spi clock
+				  --sclk <= NOT sclk; --toggle spi clock
+              sclk_int <= NOT sclk_int; --toggle spi clock
             END IF;
             
             --receive spi clock toggle

@@ -18,8 +18,8 @@ entity C88 is
 			  SCK: out STD_LOGIC;
 			  SS: out STD_LOGIC;
 			  
-			  clock_slow: in STD_LOGIC;
-			  clock_full: in STD_LOGIC;
+			  is_clock_slow: in STD_LOGIC;
+			  is_clock_full: in STD_LOGIC;
 			  view_pc: in STD_LOGIC;
 			  view_reg: in STD_LOGIC);
 end C88;
@@ -144,8 +144,8 @@ begin
 				else slow_clock when (clock_mode = SLOW_cm)
 				else fast_clock;
 	
-	clock_mode <= SLOW_cm when clock_slow = '1'
-			else FULL_cm when clock_full = '1'
+	clock_mode <= SLOW_cm when is_clock_slow = '1'
+			else FULL_cm when is_clock_full = '1'
 			else FAST_cm;
 			
 	view_mode <= PC_vm when view_pc = '1'

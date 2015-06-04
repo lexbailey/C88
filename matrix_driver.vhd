@@ -9,7 +9,8 @@ entity matrix_driver is
            MOSI : out  STD_LOGIC;
 			  MISO : in  STD_LOGIC;
            SS : out  STD_LOGIC;
-           SCK : buffer  STD_LOGIC;
+           --SCK : buffer  STD_LOGIC;
+			  SCK : out STD_LOGIC;
 			  Matrix_data : in cell_select_array);
 end matrix_driver;
 
@@ -29,7 +30,8 @@ architecture Behavioral of matrix_driver is
 		addr : IN integer;
 		tx_data : IN std_logic_vector(d_width-1 downto 0);
 		miso : IN std_logic;          
-		sclk : buffer std_logic;
+		--sclk : buffer std_logic;
+		sclk : out std_logic;
 		ss_n : buffer std_logic_vector(slaves-1 downto 0);
 		mosi : OUT std_logic;
 		busy : OUT std_logic;

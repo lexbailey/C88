@@ -75,6 +75,12 @@ begin
 						deb_sig <= '0';
 					end if;
 				end if;
+				
+				--So that simulations don't have to wait an age for a signal
+				--to debounce, we can short circuit deb_sig here.
+				--pragma synthesis_off
+				deb_sig <= sig;
+				--pragma synthesis_on
 			end if;
 		end if;
 	end process;
