@@ -1,4 +1,4 @@
-
+﻿
 C88 instruction encoding
 
 Opcode - 7:0
@@ -22,8 +22,8 @@ There is a register, just one, the register.
 
 01000 JMP	Jump to specified address
 01001 JMA	Jump to the address stored at the specified address
-ToBeImplemented 01010 NEG	Negate, take the two's compliment of the main register
-ToBeImplemented 01011 INV	Invert, invert the main register
+
+
 
 01100 IOW	IO write, write register to output
 01101 IOR	IO read, read input to register
@@ -35,10 +35,10 @@ ToBeImplemented 01011 INV	Invert, invert the main register
 10010 MUL	Multiply value at address by register, result in register
 10011 DIV	Divide register by value at address, result in register
 
-10100 SHL	Shift register left by ammount specified (as address), this can be used as a no-op, shift left 0
-10101 SHR	Shift register right by ammount specified (as address), this can be used as a no-op, shift right 0
-10110 ROL	Rotate register left by ammount specified (as address), this can be used as a no-op, rotate left 0
-10111 ROR	Rotate register right by ammount specified (as address), this can be used as a no-op, rotate right 0
+10100 SHL	Shift register left by ammount specified (as address)
+10101 SHR	Shift register right by ammount specified (as address)
+10110 ROL	Rotate register left by ammount specified (as address)
+10111 ROR	Rotate register right by ammount specified (as address)
 
 11000 ADDU	Same as ADD but unsigned
 11001 SUBU	Same as SUB but unsigned

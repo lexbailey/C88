@@ -110,36 +110,32 @@ begin
 		if (rising_edge(clk)) then
 			if deb_Reset = '1' then
 				clock_counter <= (others =>'0');
+				fast_clock <= '0';
+				
+				slow_clock_counter <= (others => '0');
+				slow_clock <= '0';
 			else
 				if clock_counter = "111110100000000" then
 					clock_counter <= (others =>'0');
 					fast_clock <= '1';
-				else
-					clock_counter <= std_logic_vector(unsigned(clock_counter) + 1);
-					fast_clock <= '0';
-				end if;
-			end if;
-		end if;
-	end process;
-	
-	process(clk) begin
-		if rising_edge(clk) then
-			if deb_Reset <= '1' then
-				slow_clock_counter <= (others => '0');
-			else
-				if fast_clock = '1' then
-					if slow_clock_counter  = "1100100" then
+					
+					if slow_clock_counter = "1100100" then
 						slow_clock_counter <= (others => '0');
 						slow_clock <= '1';
 					else
 						slow_clock_counter <= std_logic_vector(unsigned(slow_clock_counter) + 1);
 						slow_clock <= '0';
 					end if;
+					
+				else
+					clock_counter <= std_logic_vector(unsigned(clock_counter) + 1);
+					fast_clock <= '0';
+					slow_clock <= '0';
 				end if;
 			end if;
 		end if;
 	end process;
-	
+		
 	enable <= '1' when (clock_mode = FULL_cm)
 				else slow_clock when (clock_mode = SLOW_cm)
 				else fast_clock;

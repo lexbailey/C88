@@ -5,6 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity ALU is
     Port ( inputA : in  STD_LOGIC_VECTOR (7 downto 0);
            inputB : in  STD_LOGIC_VECTOR (7 downto 0);
+			  Baddr : in  STD_LOGIC_VECTOR (2 downto 0);
            operation : in  STD_LOGIC_VECTOR (3 downto 0);
            output : out  STD_LOGIC_VECTOR (7 downto 0));
 end ALU;

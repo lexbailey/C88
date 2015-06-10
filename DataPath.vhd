@@ -55,6 +55,7 @@ architecture Behavioral of DataPath is
 	PORT(
 		inputA : IN std_logic_vector(7 downto 0);
 		inputB : IN std_logic_vector(7 downto 0);
+		Baddr : IN  STD_LOGIC_VECTOR (2 downto 0);
 		operation : IN std_logic_vector(3 downto 0);          
 		output : OUT std_logic_vector(7 downto 0)
 		);
@@ -242,6 +243,7 @@ begin
 	Inst_ALU: ALU PORT MAP(
 		inputA => main_reg_out,
 		inputB => RAM_Data_out,
+		Baddr => RAM_Addr_DECODE,
 		operation => ALU_op,
 		output => ALU_Result
 	);

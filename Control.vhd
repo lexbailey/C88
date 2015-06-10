@@ -74,7 +74,7 @@ begin
 					next_state <= EXECUTE_s;
 				end if;
 			when STEP_s =>
-				if run = '0' then
+				if (run = '0') or (enable = '0') then
 					next_state <= PAUSE_s;
 				else 
 					next_state <= READ_s;

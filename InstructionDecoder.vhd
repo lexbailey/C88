@@ -71,7 +71,7 @@ begin
 			
 	io_reg_in_sel <= opcode(3);
 	
-	is_io_in <= '1' when (opcode (7 downto 3) = "01110")
+	is_io_in <= '1' when (opcode (7 downto 3) = "01110") or (opcode (7 downto 3) = "01101")
 			else '0';
 
 end Behavioral;
