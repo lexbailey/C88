@@ -12,8 +12,8 @@ end comparator;
 
 architecture Behavioral of comparator is
 
-	signal a_un : signed (7 downto 0);
-	signal b_un : signed (7 downto 0);
+	signal a_un : unsigned (7 downto 0);
+	signal b_un : unsigned (7 downto 0);
 
 	constant MODE_GREATER : std_logic_vector(1 downto 0) := "00";
 	constant MODE_LESS : std_logic_vector(1 downto 0) := "01";
@@ -22,8 +22,8 @@ architecture Behavioral of comparator is
 
 begin
 
-	a_un <= signed(a);
-	b_un <= signed(b);
+	a_un <= unsigned(a);
+	b_un <= unsigned(b);
 
 	process (mode, a_un, b_un) begin
 		case mode is
