@@ -199,7 +199,7 @@ for (<$file>){
 			#If the instruction regex didn't match, it could be a raw number
 			if (/^[ \t]*([-+]?(?:0x)?\d+)[ \t]*/){
 				#Get the number (Assume decimal)
-				$num == int($1);
+				$num = int($1);
 				#If the number is 0 then maybe it was actually hex
 				if ($1 == 0){
 					#Get the hex value instead, if it really was 0 then it will still be zero
